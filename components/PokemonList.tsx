@@ -14,7 +14,7 @@ interface pokemonDataObj {
     weight: number;
 }
 
-interface pokemonResponse {
+export interface pokemonResponse {
     data: pokemonDataObj[];
     hasMorePages: boolean;
 }
@@ -24,7 +24,7 @@ interface searchPokemonObj {
     error?: 'noPokemonFound'
 }
 
-export default function PokemonList() {
+export default function PokemonList({initialPokemonData}:{initialPokemonData:pokemonResponse}) {
 
     const loadingElementRef = useRef<HTMLDivElement>(null);
     const loadingIntersectionObserver = useRef<IntersectionObserver>(null);
@@ -32,7 +32,7 @@ export default function PokemonList() {
     const nextPage = useRef(1);
     const searchPokemonInputRef = useRef<HTMLInputElement>(null);
     const isFetchingMorePokemon = useRef(false);
-    const [pokemonList,setPokemonList] = useState<pokemonDataObj[]>([]);
+    const [pokemonList,setPokemonList] = useState<pokemonDataObj[]>(initialPokemonData ? initialPokemonData.data : []);
     const [searchPokemon,setSearchPokemon] = useState<searchPokemonObj | null>();
 
     const fetchPokemons = useCallback(async (page:number = 0,limit:number = 20) => {
@@ -109,10 +109,10 @@ export default function PokemonList() {
 
     useEffect(() => {
 
-            if (!pokemonList || !pokemonList.length) {
-                console.log('INIT: ',pokemonList);
-                fetchPokemons();
-            }
+            // if (!pokemonList || !pokemonList.length) {
+            //     console.log('INIT: ',pokemonList);
+            //     fetchPokemons();
+            // }
 
             if (pokemonList && pokemonList.length && !isFetchingMorePokemon.current && loadingElementRef.current) {
                 console.log('CREATING THE OBSERVER')
