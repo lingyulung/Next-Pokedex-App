@@ -94,44 +94,26 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
         }
     },[]);
 
-    // const renderPokemonList = useCallback(() => {
-
-    //     if (searchPokemon) {
-
-    //         if (searchPokemon.error && searchPokemon.error === 'noPokemonFound') {
-    //             return <p></p>
-    //         }
-
-    //     } else if (pokemonList && pokemonList.length) {
-    //         return pokemonList.map((pokemon,index) => <PokemonCard data={pokemon} key={pokemon.name} preload={index - 1 <= 15} />);
-    //     }
-    // },[]);
-
     useEffect(() => {
 
-            // if (!pokemonList || !pokemonList.length) {
-            //     console.log('INIT: ',pokemonList);
-            //     fetchPokemons();
-            // }
+        if (pokemonList && pokemonList.length && !isFetchingMorePokemon.current && loadingElementRef.current) {
+            console.log('CREATING THE OBSERVER')
+            loadingIntersectionObserver.current = new IntersectionObserver((el) => {
 
-            if (pokemonList && pokemonList.length && !isFetchingMorePokemon.current && loadingElementRef.current) {
-                console.log('CREATING THE OBSERVER')
-                loadingIntersectionObserver.current = new IntersectionObserver((el) => {
-
-                    if (el[0].isIntersecting) {
-                        if (loadingIntersectionObserver.current) {
-                            loadingIntersectionObserver.current.disconnect()
-                        }
-    
-                        isFetchingMorePokemon.current = true;
-                        console.log('OBSERVER CALLBACK RAN',loadingIntersectionObserver.current)
-                        fetchPokemons(nextPage.current);
+                if (el[0].isIntersecting) {
+                    if (loadingIntersectionObserver.current) {
+                        loadingIntersectionObserver.current.disconnect()
                     }
 
-                });
+                    isFetchingMorePokemon.current = true;
+                    console.log('OBSERVER CALLBACK RAN',loadingIntersectionObserver.current)
+                    fetchPokemons(nextPage.current);
+                }
 
-                loadingIntersectionObserver.current.observe(loadingElementRef.current);
-            }
+            });
+
+            loadingIntersectionObserver.current.observe(loadingElementRef.current);
+        }
     },[fetchPokemons,pokemonList]);
 
     useEffect(() => {
@@ -161,9 +143,9 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
                 </form>
                 {searchPokemon && !searchPokemon.data && searchPokemon.error && searchPokemon.error === 'noPokemonFound' && <p className="text-red-500 mt-2 text-center text-xs">No Such Pokemon Exists</p>}
             </div>
-            <main className="grid grid-cols-3 gap-4">
+            {(searchPokemon && searchPokemon.data && !searchPokemon.error) || (pokemonList && pokemonList.length > 0) && <main className="grid grid-cols-3 gap-4">
                 {searchPokemon && searchPokemon.data && !searchPokemon.error ? <PokemonCard data={searchPokemon.data} /> : pokemonList && pokemonList.length && pokemonList.map((pokemon,index) => <PokemonCard data={pokemon} key={pokemon.name} preload={index - 1 <= 15} />)}
-            </main>
+            </main>}
             {!searchPokemon && isShowLoading.current && <div className="grid grid-cols-3 gap-4 animate-pulse mt-4" ref={loadingElementRef}>
                 <div className="bg-gray-400 w-full h-[114.34px] rounded-md"></div>
                 <div className="bg-gray-400 w-full h-[114.34px] rounded-md"></div>
