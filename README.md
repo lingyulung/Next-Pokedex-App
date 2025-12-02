@@ -5,16 +5,20 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First make sure to you are using Node version >=20.9.0.
+
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+This project is using the API routes from a separate project, [laravel-pokedex-app](https://github.com/lingyulung/laravel-pokedex-app). Make sure follow the instructions in that project to serve its files before running this project.
+
+You can start your local development server to run this project in your local machine.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
