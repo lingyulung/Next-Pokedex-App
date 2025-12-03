@@ -9,8 +9,8 @@ import PokemonStaticBanenr2 from "@/public/banner/static/pokemon_static_banner_2
 
 export default function Banner() {
     return (
-        <div className="flex gap-x-4 items-center justify-center">
-            <Carousel className="max-h-68 max-w-[53.313rem] w-full h-full" plugins={[
+        <div className="flex flex-col md:flex-row gap-x-4 gap-y-2 items-center justify-center w-full">
+            <Carousel className="md:max-h-68 md:max-w-[53.313rem] w-full h-full rounded overflow-hidden" plugins={[
                 Autoplay({
                     delay: 4000
                 })
@@ -20,28 +20,28 @@ export default function Banner() {
             }}>
                 <CarouselContent className="ml-0 w-full h-full">
                     <CarouselItem className="pl-0 basis-full w-full h-full">
-                        <div className="relative w-full h-full min-h-68">
+                        <div className="relative w-full h-28 md:h-full md:min-h-68">
                             <Image src={ZABanner} alt="Pokemon Legends Z A" fill objectFit="cover" />
                         </div>
                     </CarouselItem>
                     <CarouselItem className="pl-0 basis-full w-full h-full">
-                        <div className="relative w-full h-full min-h-68">
+                        <div className="relative w-full h-28 md:h-full md:min-h-68">
                             <Image src={PokopiaBanner} alt="Pokemon Pokopia" fill objectFit="cover" />
                         </div>
                     </CarouselItem>
                     <CarouselItem className="pl-0 basis-full w-full h-full">
-                        <div className="relative w-full h-full min-h-68">
+                        <div className="relative w-full h-28 md:h-full md:min-h-68">
                             <Image src={ScarletVioletBanner} alt="Pokemon Scarlet and Violet" fill objectFit="cover" />
                         </div>
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
             {/* <div className="min-h-68 h-full md:min-w-[53.313rem] w-full bg-orange-400"></div> */}
-            <div className="flex flex-col gap-y-4 h-full">
-                <div className="min-w-[25.667rem] w-full min-h-32.5 h-[50%] bg-orange-400 relative">
+            <div className="flex flex-col gap-y-2 md:gap-y-4 h-full w-full md:w-auto">
+                <div className="md:min-w-[25.667rem] w-full h-28 md:min-h-32.5 md:h-[50%] bg-orange-400 relative rounded overflow-hidden">
                     <Image src={PokemonStaticBanner1} alt="pokemon static 1" fill objectFit="cover" />
                 </div>
-                <div className="min-w-[25.667rem] w-full min-h-32.5 h-[50%] bg-orange-400 relative">
+                <div className="md:min-w-[25.667rem] w-full h-28 md:min-h-32.5 md:h-[50%] bg-orange-400 relative rounded overflow-hidden">
                     <Image src={PokemonStaticBanenr2} alt="pokemon static 2" fill objectFit="cover" />
                 </div>
             </div>

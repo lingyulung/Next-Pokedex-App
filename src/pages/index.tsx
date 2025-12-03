@@ -39,7 +39,7 @@ export default function Home({initialPokemonData}:InferGetStaticPropsType<typeof
       <Banner />
       
       <div className="flex gap-x-3 justify-center w-full relative">
-        <div className="pt-3 h-fit sticky top-0">
+        <div className="pt-3 h-fit sticky top-0 hidden md:block">
           <div className="w-70.5 h-[22.313rem] bg-orange-500 relative">
             <Image src={PokemonVerticalBanner1} alt="pokemon vertical 1" fill objectFit="cover"/>
           </div>
@@ -47,7 +47,7 @@ export default function Home({initialPokemonData}:InferGetStaticPropsType<typeof
         <div className="flex-1 relative">
           <PokemonList initialPokemonData={initialPokemonData} />
         </div>
-        <div className="h-fit pt-3 sticky top-0">
+        <div className="h-fit pt-3 sticky top-0 hidden md:block">
           <div className="w-70.5 h-[22.313rem] bg-orange-500 sticky top-0 py-3">
             <Image src={PokemonVerticalBanner2} alt="pokemon vertical 2" fill objectFit="cover" />
           </div>

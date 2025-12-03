@@ -143,7 +143,7 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
                 </form>
                 {searchPokemon && !searchPokemon.data && searchPokemon.error && searchPokemon.error === 'noPokemonFound' && <p className="text-red-500 mt-2 text-center text-xs">No Such Pokemon Exists</p>}
             </div>
-            <main className="grid grid-cols-3 gap-4">
+            <main className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {searchPokemon && searchPokemon.data && !searchPokemon.error ? <PokemonCard data={searchPokemon.data} /> : pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon,index) => <PokemonCard data={pokemon} key={pokemon.name} preload={index - 1 <= 15} />)}
             </main>
             {!searchPokemon && isShowLoading.current && <div className="grid grid-cols-3 gap-4 animate-pulse mt-4" ref={loadingElementRef}>
