@@ -97,7 +97,6 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
     useEffect(() => {
 
         if (pokemonList && pokemonList.length && !isFetchingMorePokemon.current && loadingElementRef.current) {
-            console.log('CREATING THE OBSERVER')
             loadingIntersectionObserver.current = new IntersectionObserver((el) => {
 
                 if (el[0].isIntersecting) {
@@ -106,7 +105,7 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
                     }
 
                     isFetchingMorePokemon.current = true;
-                    console.log('OBSERVER CALLBACK RAN',loadingIntersectionObserver.current)
+
                     fetchPokemons(nextPage.current);
                 }
 
@@ -133,8 +132,8 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
                         }
                     }}>
                     <Input placeholder="Pokemon Name" ref={searchPokemonInputRef} />
-                    <Button type="submit" className="bg-orange-400">Search</Button>
-                    {searchPokemon && searchPokemon.data && !searchPokemon.error && <Button onClick={() => {
+                    <Button type="submit" className="bg-orange-400 active:scale-75 transition-transform">Search</Button>
+                    {searchPokemon && searchPokemon.data && !searchPokemon.error && <Button className="bg-gray-300 text-black hover:text-white active:scale-75 transition-transform" onClick={() => {
                         if (searchPokemonInputRef.current) {
                             searchPokemonInputRef.current.value = '';
                         }
@@ -143,13 +142,13 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
                 </form>
                 {searchPokemon && !searchPokemon.data && searchPokemon.error && searchPokemon.error === 'noPokemonFound' && <p className="text-red-500 mt-2 text-center text-xs">No Such Pokemon Exists</p>}
             </div>
-            <main className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <main className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 auto-rows-[1fr]">
                 {searchPokemon && searchPokemon.data && !searchPokemon.error ? <PokemonCard data={searchPokemon.data} /> : pokemonList && pokemonList.length > 0 && pokemonList.map((pokemon,index) => <PokemonCard data={pokemon} key={pokemon.name} preload={index - 1 <= 15} />)}
             </main>
-            {!searchPokemon && isShowLoading.current && <div className="grid grid-cols-3 gap-4 animate-pulse mt-4" ref={loadingElementRef}>
+            {!searchPokemon && isShowLoading.current && <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 animate-pulse mt-4" ref={loadingElementRef}>
                 <div className="bg-gray-400 w-full h-[114.34px] rounded-md"></div>
                 <div className="bg-gray-400 w-full h-[114.34px] rounded-md"></div>
-                <div className="bg-gray-400 w-full h-[114.34px] rounded-md"></div>
+                <div className="bg-gray-400 w-full h-[114.34px] rounded-md hidden md:block"></div>
             </div>}
         </>
     )
@@ -157,11 +156,11 @@ export default function PokemonList({initialPokemonData}:{initialPokemonData:pok
 
 function PokemonCard({data,preload = false}:{data:pokemonDataObj;preload?:boolean}) {
     return (
-        <div className="flex items-center gap-x-4 justify-center p-4 border border-gray-200 rounded-md">
+        <div className="flex items-center gap-x-2 md:gap-x-4 justify-center p-2 md:p-4 border border-gray-200 rounded-md hover:shadow-md transition-shadow">
             <Image src={data.image} alt={data.name} width={100} height={100} preload={preload} loading={preload ? 'eager' : 'lazy'} />
             <div className="flex flex-col justify-center gap-y-2 w-[60%]">
-                <p className="font-bold text-lg">{data.name}</p>
-                <div className="flex items-center gap-x-2">
+                <p className="font-bold text-base md:text-lg">{data.name}</p>
+                <div className="flex items-center gap-1 md:gap-2">
                     {data.types.map(type => <p key={type.name} className="bg-gray-400 p-1 rounded-md text-xs">{type.name}</p>)}
                 </div>
             </div>
